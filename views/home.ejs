@@ -1,0 +1,24 @@
+<%- include('partials/header'); -%>
+<div class="headerError center">
+  <% if(err) { %>
+  <h1><%= err %></h1>
+  <%} else{} %>
+</div>
+<br /><br />
+<header>
+  <div class="smoothie">
+    <img
+      src="/quiz-image.jpg"
+      alt="Quiz image logo"
+      width="100%"
+      height="100%"
+    />
+  </div>
+  <div class="headings">
+    <h2>Online Quiz</h2>
+    <h3>By Jungroo For Students</h3>
+    <a href="/login" class="btn">Login</a>
+  </div>
+</header>
+
+<%- include('partials/footer'); -%>

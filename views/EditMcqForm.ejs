@@ -1,0 +1,62 @@
+<%- include('partials/header'); -%>
+
+<center><h1>MCQ Details</h1></center>
+<form action="/admin/editmcq" method="post">
+  <input
+    type="text"
+    id="question"
+    name="question"
+    placeholder="Question"
+    value="<%= mcq.question %>"
+    required
+  />
+  <h3>Options</h3>
+  <input
+    type="text"
+    id="optionOne"
+    name="optionOne"
+    placeholder="Option A"
+    value="<%= mcq.options.optionOne %>"
+    required
+  />
+  <input
+    type="text"
+    id="optionTwo"
+    name="optionTwo"
+    placeholder="Option B"
+    value="<%= mcq.options.optionTwo %>"
+    required
+  />
+  <input
+    type="text"
+    id="optionThree"
+    name="optionThree"
+    placeholder="Option C"
+    value="<%= mcq.options.optionThree %>"
+    required
+  />
+  <input
+    type="text"
+    id="optionFour"
+    name="optionFour"
+    placeholder="Option D"
+    value="<%= mcq.options.optionFour %>"
+    required
+  />
+  <h3>Answer</h3>
+
+  <input
+    type="text"
+    id="answer"
+    name="answer"
+    placeholder="Answer"
+    value="<%= mcq.answer %>"
+    required
+  />
+  <input type="hidden" name="assess_id" value="<%=mcq.assessmentId%>" />
+  <input type="hidden" name="mcq_id" value="<%=mcq._id%>" />
+
+  <input type="submit" value="Submit" />
+</form>
+
+<%- include('partials/footer'); -%>

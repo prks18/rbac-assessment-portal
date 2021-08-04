@@ -1,0 +1,49 @@
+<%- include('partials/header'); -%>
+
+<form class="stylishForm">
+  <h2>Signup</h2>
+  <div class="success"></div>
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email" required />
+  <div class="email error"></div>
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password" required />
+  <div class="password error"></div>
+  <button type="submit" id="submit">SignUp</button>
+  <h4>Already Registered? <a href="/login">Login now</a></h4>
+</form>
+
+<script>
+  const form = document.querySelector("form");
+  const emailError = document.querySelector(".email.error");
+  const passwordError = document.querySelector(".password.error");
+  const success = document.querySelector(".success");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    //reset fields
+    emailError.innerHTML = "";
+    passwordError.innerHTML = "";
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const response = await fetch("/signup", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-type": "application/json" },
+    });
+
+    const data = await response.json();
+
+    if (data.errors) {
+      emailError.innerHTML = data.errors.email;
+      passwordError.innerHTML = data.errors.password;
+    } else if (data.success) {
+      success.innerHTML = data.success;
+      location.assign("/login");
+    }
+  });
+</script>
+<%- include('partials/footer'); -%>

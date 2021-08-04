@@ -1,0 +1,58 @@
+<%- include('partials/header'); -%>
+
+<form class="stylishForm">
+  <h2>Login</h2>
+
+  <div class="success"></div>
+  <div class="error"></div>
+
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email" required />
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password" required />
+  <button type="submit" id="submit">Login</button>
+  <h4>Not Yet Registered? <a href="/signup">Signup now</a></h4>
+</form>
+<script>
+  const form = document.querySelector("form");
+  const Error = document.querySelector(".error");
+  const success = document.querySelector(".success");
+
+  /////Utility Functions//////
+  ////////////////////////////
+
+  /////Event Listeners //
+  //////////////////////
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    //reset fields
+    Error.innerHTML = "";
+
+    const email = form.email.value;
+    const password = form.password.value;
+    try {
+      const response = await fetch("/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-type": "application/json" },
+      });
+
+      const data = await response.json();
+
+      if (data.errors) {
+        Error.innerHTML = data.errors.error || "";
+      } else if (data.success) {
+        success.innerHTML = data.success || "";
+
+        if (data.user.role == "admin") location.assign("/admin/home");
+        else if (data.user.role == "contentCreator")
+          location.assign("/creator/home");
+        else location.assign("/student/home");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>
+<%- include('partials/footer'); -%>

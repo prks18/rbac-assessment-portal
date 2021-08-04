@@ -1,0 +1,57 @@
+<%- include('partials/header'); -%>
+
+<form action="/creator/createmcq" method="post">
+  <% for(var i=0; i< data.noq; i++) { %>
+  <div class="mcq" class="stylishForm">
+    <p>Question <%= i+1 %></p>
+    <input
+      type="text"
+      class="questions"
+      name="questions"
+      placeholder="Enter Question"
+      required
+    />
+    <input
+      type="text"
+      class="OptionOne"
+      name="OptionOne"
+      placeholder="Enter Option One"
+      required
+    />
+    <input
+      type="text"
+      class="OptionTwo"
+      name="OptionTwo"
+      placeholder="Enter Option Two"
+      required
+    />
+    <input
+      type="text"
+      class="OptionThree"
+      name="OptionThree"
+      placeholder="Enter Option Three "
+      required
+    />
+    <input
+      type="text"
+      class="OptionFour"
+      name="OptionFour"
+      placeholder="Enter Option Four"
+      required
+    />
+    <input
+      type="text"
+      class="answers"
+      name="answers"
+      placeholder="Enter Answer Option"
+      required
+    />
+  </div>
+  <br />
+  <% } %>
+  <center><button class="btn" type="reset">Clear</button></center>
+  <center><button class="btn" type="submit">Save</button></center>
+  <input type="hidden" name="assess_id" value="<%= data.assess_id %>" />
+</form>
+
+<%- include('partials/footer'); -%>

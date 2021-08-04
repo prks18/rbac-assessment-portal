@@ -1,0 +1,68 @@
+<%- include('partials/header'); -%>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assessments</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+      }
+      .stylishForm {
+        width: 100% !important;
+      }
+      .assessment {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1rem solid lightcoral;
+        height: 50%;
+        width: 100%;
+        padding: 1rem;
+        margin: auto;
+        /* -webkit-transform: scale(0.5);
+        -moz-transform: scale(0.5);
+        -ms-transform: scale(0.5);
+        transform: scale(0.5); */
+      }
+      .assessmentTitle {
+        padding: 1.5rem;
+      }
+      .assessmentText {
+        padding: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="assessments">
+      <% assessments.forEach(function(assessment){ %>
+      <div class="assessment">
+        <form
+          id="form"
+          class="stylishForm"
+          action="/student/getmcq"
+          method="GET"
+        >
+          <h1 class="assessmentTitle">
+            Assessment Topic:<%= assessment.assess_name%>
+          </h1>
+          <p class="assessmentText">
+            No. Of Questions:<%= assessment.numberQns%>
+          </p>
+          <button type="submit" class="btn">START</button>
+          <input type="hidden" name="assess_id" value="<%= assessment._id %>" />
+        </form>
+      </div>
+      <br /><br />
+      <%}) %>
+    </div>
+  </body>
+</html>
+
+<%- include('partials/footer'); -%>

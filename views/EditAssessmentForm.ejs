@@ -1,0 +1,25 @@
+<%- include('partials/header'); -%>
+
+<center><h1>Assessment Details</h1></center>
+<form action="/admin/editAssessment" method="post">
+  <input
+    type="text"
+    id="name"
+    name="assess_name"
+    placeholder="Name of Assessment"
+    value="<%= assessment.assess_name %>"
+    required
+  />
+  <input
+    type="text"
+    id="noq"
+    name="numberQns"
+    placeholder="Number of Questions"
+    value="<%= assessment.numberQns %>"
+    required
+  />
+  <input type="hidden" name="assess_id" value="<%=assessment._id%>" />
+  <input type="submit" value="Submit" />
+</form>
+
+<%- include('partials/footer'); -%>

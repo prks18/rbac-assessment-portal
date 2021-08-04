@@ -1,0 +1,140 @@
+<%- include('partials/header'); -%>
+
+
+    <style>
+    input[type="submit"]{
+  border-radius: 36px;
+  
+  cursor: pointer;
+}
+    .createBtn{
+         background-color: #fee996;
+     }
+    .editBtn,.editBtnMcq{
+        background-color: #4D88FF;
+        color:white;
+    }
+    .deleteBtn,.deleteBtnMcq,.deleteCrtrBtn{
+        background-color: rgb(216, 74, 74);
+        color:white;
+    }
+    </style>
+
+    <section id="contentCreatorSection">
+      <form action="/admin/createcreator" method="GET">
+        <button class="btn" type="submit" id="create-creator">CREATE CREATOR</button>
+      </form>
+      <center><h1>List of Creators </h1></center><br><br>
+      <div class="creators">
+        <% creators.forEach(function(creator,index){ %>
+          <form id="creator" class="stylishForm" method="GET" action="/admin/deletecreator">
+            <h2>Creator <%= index+1 %></h3>
+            <h3>Email : <%= creator.email %></h3> <br>
+            <input type="hidden" name="creator_id" value= <%= creator._id %> />
+            <input type="submit" class="deleteCrtrBtn"  value="DELETE CREATOR"> <br>
+            </form>
+            <% }) %>
+      </div>
+
+    </section>
+ <hr>
+     <section id="mcqSection">
+        
+      <center><h1>Total MCQS </h1></center><br><br>
+  
+     <div class="mcqs">  
+       <% mcqs.forEach(function(mcq,index){ %>
+       <form id="mcqform" class="stylishForm" action="" method="GET">
+         <h1 class="question">MCQ Question <%= index+1%>:<%= mcq.question%></h1>
+         <div class="options">
+           <h3 class="mcqOptions">Options:-</h3>
+           <p class="optionOne">Option A : <%=mcq.options.optionOne%></p>
+           <p class="optionTwo">Option B : <%=mcq.options.optionTwo%></p>
+           <p class="optionThree">Option C : <%=mcq.options.optionThree%></p>
+           <p class="optionFour">Option D : <%=mcq.options.optionFour%></p>
+         </div>
+         <h4 class="answer">Answer : <%=mcq.answer%></h4>
+         <input type="hidden" name="assess_id" value= <%= mcq.assessmentId %> />
+         <input type="hidden" name="mcq_id" value= <%= mcq._id %> />
+         <input type="submit" class="editBtnMcq"  value="EDIT MCQ"> <br>
+         <input type="submit" class="deleteBtnMcq"  value="DELETE MCQ"> <br>
+       </form>
+         <br><br>
+       <% }) %>
+
+     </section>
+
+
+
+
+     <section id="assessmentSection">
+       <center><h1>Total Assessments </h1></center><br><br>
+       <form action="/admin/createassessment" method="get">
+        <button class="btn" type="submit" id="create-assessment">CREATE ASSESSMENT</button>
+      </form>
+      
+      <div class="assessments">  
+        <% assessments.forEach(function(assessment){ %>
+        <form id="form" class="stylishForm" action="" method="GET">
+          <h1 class="assessmentName">Assessment Topic:<%= assessment.assess_name%></h1>
+          <p class="noq">No. Of Questions:<%= assessment.numberQns%></p>
+          <input type="hidden" name="noq" value= <%= assessment.numberQns %> />
+          <input type="hidden" name="assess_id" value=" <%= assessment._id %> "  />
+          <input type="submit" class="createBtn"  value="CREATE MCQ"> <br>
+          <input type="submit" class="editBtn"  value="EDIT ASSESSMENT"> <br>
+          <input type="submit" class="deleteBtn"  value="DELETE ASSESSMENT"> <br>
+        </form>
+          <br><br>
+        <% }) %>
+      </section>
+
+        <script>
+            const createBtns = Array.from(document.getElementsByClassName("createBtn"));
+            const editBtns = Array.from(document.getElementsByClassName("editBtn"));
+            const deleteBtns = Array.from(document.getElementsByClassName("deleteBtn"));
+            const editBtnsMcq =  Array.from(document.getElementsByClassName("editBtnMcq"));
+            const deleteBtnsMcq = Array.from(document.getElementsByClassName("deleteBtnMcq"));
+            
+            
+            createBtns.forEach((createBtn)=>{
+            createBtn.addEventListener("click",function(e){
+                 
+                 e.target.parentNode.setAttribute("action","/admin/createmcq");
+            }) });
+
+            editBtns.forEach((editBtn)=>{
+            editBtn.addEventListener("click",function(e){
+              
+              e.target.parentNode.setAttribute("action","/admin/editassessment");
+            }) });
+
+            deleteBtns.forEach((deleteBtn)=>{
+            deleteBtn.addEventListener("click",function(e){
+              
+              e.target.parentNode.setAttribute("action","/admin/deleteassessment");
+            }) });
+
+            editBtnsMcq.forEach((editBtnMcq)=>{
+            editBtnMcq.addEventListener("click",function(e){
+              
+              e.target.parentNode.setAttribute("action","/admin/editmcq");
+            }) });
+
+            deleteBtnsMcq.forEach((deleteBtnMcq)=>{
+            deleteBtnMcq.addEventListener("click",function(e){
+              
+              e.target.parentNode.setAttribute("action","/admin/deletemcq");
+            }) });
+
+
+        </script>
+      </div>
+    </div>
+      
+   
+    
+    
+  
+    <%- include('partials/footer'); -%>
+  </body>
+</html>

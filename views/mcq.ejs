@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assessment</title>
+    <link rel="stylesheet" href="/mcq.css" />
+    <!-- <link rel="stylesheet" href="/qa.css" /> -->
+    <style>
+      .headerError {
+        color: darkred;
+      }
+      .headerSuccess {
+        color: forestgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- header info starts---------------------- -->
+    <nav>
+      <h1><a href="/">MCQ APP</a></h1>
+      <% if(locals.err) { %>
+      <div class="headerError"><%= err %></div>
+      <% } else if(locals.success) { %>
+      <div class="headerSuccess"><%= success %></div>
+      <% } %>
+      <div class="right">
+        <% if(locals.user) { %>
+        <h1>Welcome,&nbsp;&nbsp;</h1>
+        <%= user.email %>
+        <button class="btn"><a href="\logout">Logout</a></button>
+        <% } else { %>
+        <button class="btn"><a href="\login">Login</a></button>
+        <button class="btn"><a href="\signup">Signup</a></button>
+        <% } %>
+      </div>
+    </nav>
+    <!-- header info ends ------------------------------------- -->
+
+    <!-- mcq form starts ------------------------------------------- -->
+
+    <div id="mcqContainer" class="justify-center flex-column">
+      <center><h1>MCQ TEST</h1></center>
+      <br /><br />
+      <form class="mcqForm" action="/student/postmcq" method="POST">
+        <% mcqs.forEach(function(mcq,i){ %>
+        <div class="mcq">
+          <div class="questions">
+            <p>Question <%=i+1%>. <%= mcq.question %></p>
+          </div>
+          <div class="options">
+            <ol type="A">
+              <li>
+                <input
+                  type="radio"
+                  name="<%= i %>"
+                  id="a"
+                  class="radio"
+                  value="A"
+                />
+                <label for="a"><%= mcq.options.optionOne %> </label>
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="<%= i %>"
+                  id="b<%= i %>"
+                  class="radio"
+                  value="B"
+                />
+                <label for="b"><%= mcq.options.optionTwo %> </label>
+              </li>
+
+              <li>
+                <input
+                  type="radio"
+                  name="<%= i %>"
+                  id="c<%= i %>"
+                  class="radio"
+                  value="C"
+                />
+                <label for="c"><%= mcq.options.optionThree %> </label>
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="<%= i %>"
+                  id="d<%= i %>"
+                  class="radio"
+                  value="D"
+                />
+                <label for="d"><%= mcq.options.optionFour %> </label>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <% }) %>
+        <input type="hidden" name="assess_id" value="<%= assess_id %>" />
+        <button type="submit" class="btn">Submit</button>
+        <button type="reset" class="btn">Reset</button>
+      </form>
+    </div>
+
+    <script>
+      let headerError = document.querySelector(".headerError");
+      let headerSuccess = document.querySelector(".headerSuccess");
+
+      if (headerError != null) {
+        setTimeout(() => {
+          headerError.innerHTML = "";
+        }, 5000);
+      } else if (headerSuccess != null) {
+        setTimeout(() => {
+          headerSuccess.innerHTML = "";
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>
+
+<%- include('partials/footer'); -%>

@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .headerError {
+        color: darkred;
+      }
+      .headerSuccess {
+        color: forestgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h1><a href="/">MCQ APP</a></h1>
+      <% if(locals.err) { %>
+      <div class="headerError"><%= err %></div>
+      <% } else if(locals.success) { %>
+      <div class="headerSuccess"><%= success %></div>
+      <% } %>
+      <div class="right">
+        <% if(locals.user) { %>
+        <h1>Welcome,&nbsp;&nbsp;</h1>
+        <%= user.email %>
+        <button class="btn"><a href="\logout">Logout</a></button>
+        <% } else { %>
+        <button class="btn"><a href="\login">Login</a></button>
+        <button class="btn"><a href="\signup">Signup</a></button>
+        <% } %>
+      </div>
+    </nav>
+    <script>
+      let headerError = document.querySelector(".headerError");
+      let headerSuccess = document.querySelector(".headerSuccess");
+
+      if (headerError != null) {
+        setTimeout(() => {
+          headerError.innerHTML = "";
+        }, 5000);
+      } else if (headerSuccess != null) {
+        setTimeout(() => {
+          headerSuccess.innerHTML = "";
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>

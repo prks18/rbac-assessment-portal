@@ -1,0 +1,81 @@
+<%- include('partials/header'); -%>
+
+
+    <style>
+    .container{
+      width: 36rem;
+  margin: 0 auto;
+  padding: 1.875rem;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: white;
+  border-color: lightcoral;
+    }
+     
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+    </style>
+    
+      <form action="/creator/createassessment" method="get">
+        <button class="btn" type="submit" id="create-assessment">CREATE ASSESSMENT</button>
+      </form>
+       <center><h1>Assessments For You!</h1></center><br><br>
+      
+      <div class="assessments">  
+        <% assessments.forEach(function(assessment){ %>
+        <form id="form" class="stylishForm" action="/creator/createmcq" method="GET">
+          <h1 class="assessmentName">Assessment Topic:<%= assessment.assess_name%></h1>
+          <p class="noq">No. Of Questions:<%= assessment.numberQns%></p>
+          <input type="hidden" name="noq" value= <%= assessment.numberQns %> />
+          <input type="hidden" name="assess_id" value=" <%= assessment._id %> "  />
+          <input type="submit" class="btn" id="modalBtn" value="CREATE MCQ">
+        </form>
+          <br><br>
+        <% }) %>
+      </div>
+    </div>
+      
+   
+    
+    
+  
+    <%- include('partials/footer'); -%>
+  </body>
+</html>

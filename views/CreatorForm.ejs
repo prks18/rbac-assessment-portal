@@ -1,0 +1,15 @@
+<%- include('partials/header'); -%>
+<center><h1>Assessment Details</h1></center>
+<form action="/admin/createcreator" method="post">
+  <input type="email" id="email" name="email" placeholder="Enter email" />
+  <input
+    type="password"
+    id="password"
+    name="password"
+    placeholder="Enter password"
+  />
+
+  <input type="submit" value="Create" />
+</form>
+
+<%- include('partials/footer'); -%>
