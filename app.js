@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 
 // database connection
 const dbURI =
-  "mongodb+srv://prakash:prks18@quiz-app-cluster.zvvdi.mongodb.net/quiz-app-cluster?retryWrites=true&w=majority";
+  "//Your mongodb uri";
 mongoose
   .connect(dbURI, {
     useNewUrlParser: true,
